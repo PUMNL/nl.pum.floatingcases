@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/floatingcaselist</path>
+    <page_callback>CRM_Floatingcases_Page_FloatingCase</page_callback>
+    <title>FloatingCase</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

@@ -123,16 +123,49 @@ function floatingcases_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 }
 
 /**
- * Functions below this ship commented out. Uncomment as required.
+ * Implementation of hook civicrm_navigationMenu
+ * to add a floating cases menu item to the Administer menu
  *
-
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function floatingcases_civicrm_preProcess($formName, &$form) {
-
+ * @param array $params
+ */
+function floatingcases_civicrm_navigationMenu( &$params ) {
+  $maxKey = _floatingcases_getMaxMenuKey($params);
+  $menuParentId = CRM_Core_DAO::getFieldValue('CRM_Core_DAO_Navigation', 'Administer', 'id', 'name');
+  $params[$menuParentId]['child'][$maxKey+1] = array (
+    'attributes' => array (
+      'label'      => ts('PUM Floating Cases'),
+      'name'       => ts('PUM Floating Cases'),
+      'url'        => CRM_Utils_System::url('civicrm/floatingcaselist', 'reset=1', true),
+      'permission' => 'administer CiviCRM',
+      'operator'   => null,
+      'separator'  => null,
+      'parentID'   => $menuParentId,
+      'navID'      => $maxKey+1,
+      'active'     => 1
+    ));
 }
 
-*/
+/**
+ * Function to determine max key in navigation menu (core solutions do not cater for child keys!)
+ *
+ * @param array $menuItems
+ * @return int $maxKey
+ */
+function _floatingcases_getMaxMenuKey($menuItems) {
+  $maxKey = 0;
+  foreach ($menuItems as $menuKey => $menuItem) {
+    if ($menuKey > $maxKey) {
+      $maxKey = $menuKey;
+    }
+    if (isset($menuItem['child'])) {
+      foreach ($menuItem['child'] as $childKey => $child) {
+        if ($childKey > $maxKey) {
+          $maxKey = $childKey;
+        }
+      }
+    }
+  }
+  return $maxKey;
+}
+
+
