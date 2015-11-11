@@ -6,4 +6,10 @@
     <title>FloatingCase</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/linkfloatingcase</path>
+    <page_callback>CRM_Floatingcases_Form_LinkCase</page_callback>
+    <title>LinkCase</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>

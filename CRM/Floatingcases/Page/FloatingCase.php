@@ -78,7 +78,7 @@ class CRM_Floatingcases_Page_FloatingCase extends CRM_Core_Page {
   protected function setRowUrls($caseId, $customerId) {
     $urls = array();
     $urls['manage'] = CRM_Utils_System::url("civicrm/contact/view/case", "reset=1&action=view&cid=".$customerId."&id=".$caseId, true);
-    $urls['link'] = CRM_Utils_System::url('civicrm/floatingcase', "action=link&cid=".$caseId, true);
+    $urls['link'] = CRM_Utils_System::url('civicrm/linkfloatingcase', "action=update&id=".$caseId."&cid=".$customerId, true);
     return $urls;
   }
   /**
